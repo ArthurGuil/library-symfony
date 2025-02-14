@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Book
+{% endblock %}
+
+{% block body %}
+	<div class="d-flex justify-content-between">
+		<h1 class="d-inline-block">Livre -
+			{{ book.name }}</h1>
+		<a class="btn btn-light align-self-center" href="{{ path('app_book_index') }}">Retour</a>
+	</div>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>N°</th>
+				<td>{{ book.id }}</td>
+			</tr>
+			<tr>
+				<th>Titre</th>
+				<td>{{ book.name }}</td>
+			</tr>
+			<tr>
+				<th>Résumé</th>
+				<td>{{ book.summary }}</td>
+			</tr>
+			<tr>
+				<th>Stock</th>
+				<td>{{ book.stock }}</td>
+			</tr>
+			<tr>
+				<th>Couverture</th>
+				<td>
+				{% if book.cover is defined and book.cover is not null %}
+				<img src="{{ asset('uploads/images/' ~ book.cover) }}" width="100">
+				{% endif %}
+				
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+
+	{% if is_granted('ROLE_ADMIN') %}
+		<a class="btn btn-primary" href="{{ path('app_book_edit', {'id': book.id}) }}">Modifier</a>
+
+		{{ include('book/_delete_form.html.twig') }}
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,20 @@
+body {
+    background-color: rgb(78, 78, 78);
+}
+
+textarea {
+    height: 200px;
+}
+
+
+input[type="checkbox"] {
+    width: 1.5em;
+    height: 1.5em;
+}
+
+form div ul {
+    list-style: none;
+    padding: 5px;
+    background-color: rgba(250, 42, 42, 0.556);
+    margin-top:5px;
+}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des réservations
+{% endblock %}
+
+{% block body %}
+
+	{% for message in app.flashes('reservation') %}
+		<div class="alert alert-success">{{ message }}</div>
+	{% endfor %}
+
+	<h1>Liste des réservations</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>N°</th>
+				<th>Date de réservation</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for reservation in reservations %}
+				<tr>
+					<td>{{ reservation.id }}</td>
+					<td>{{ reservation.dateBegin ? reservation.dateBegin|date('d/m/Y') : '' }}</td>
+					<td>
+						<a class="btn btn-light" href="{{ path('app_reservation_show', {'id': reservation.id}) }}">Afficher</a>
+						{% if is_granted('ROLE_ADMIN') %}
+							<a class="btn btn-secondary" href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">Modifier</a>
+						{% endif %}
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="3">Pas de réservation</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a class="btn btn-primary" href="{{ path('app_reservation_new') }}">Faire une réservation</a>
+{% endblock %}

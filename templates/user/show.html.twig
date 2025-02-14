@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fiche utilisateur
+{% endblock %}
+
+{% block body %}
+	<div class="d-flex justify-content-between">
+		<h1 class="d-inline-block">Fiche utilisateur</h1>
+		<a class="btn btn-light align-self-center" href="{{ path('app_user_index') }}">Retour</a>
+	</div>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>N°</th>
+				<td>{{ user.id }}</td>
+			</tr>
+			<tr>
+				<th>Email</th>
+				<td>{{ user.email }}</td>
+			</tr>
+			<tr>
+				<th>Roles</th>
+				<td>
+					{% for role in user.roles %}
+						{% if role == 'ROLE_ADMIN' %}
+							Administrateur
+						{% else %}
+							Utilisateur
+						{% endif %}
+					{% endfor %}
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<h2>Réservations</h1>
+	<table class="table">
+		<tbody>
+			{% for reservation in user.reservations %}
+				<tr>
+					<th>Réservations n°{{reservation.id}}</th>
+					<td>
+						{{ reservation.dateBegin ? reservation.dateBegin|date('d/m/Y') : '' }}
+					</td>
+					<td>
+						{% for book in reservation.books %}
+							{{ book.name }},
+						{% endfor %}
+					</td>
+                    <td>
+                    {{ include('reservation/_delete_form.html.twig') }}
+                    </td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

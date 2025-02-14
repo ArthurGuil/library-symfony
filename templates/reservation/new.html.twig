@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle réservation
+{% endblock %}
+
+{% block body %}
+	<div class="d-flex justify-content-between">
+		<h1 class="d-inline-block">Nouvelle réservation</h1>
+		<a class="btn btn-light align-self-center" href="{{ path('app_reservation_index') }}">Retour</a>
+	</div>
+
+	{{ include('reservation/_form.html.twig') }}
+
+{% endblock %}
